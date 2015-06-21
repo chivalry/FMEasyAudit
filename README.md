@@ -191,3 +191,22 @@ trigger.**
     How you present the audit log is entirely up to you. The easiest way to do so is to
     view the layout in table mode. For a very basic example, see the FMEasyAudit demo
     database.
+
+Wish List
+---------
+
+Here are some of the feature requests that we've received and are considering.
+
+### User-Definable Field Names
+
+This request is to allow the developer to use existing fields instead of having to add
+FMEasySync's `EA` fields (`EA_UUID`, `EA_Mod_Count`, `EA_Modifier`, and so on) to their
+tables.
+
+We're hoping to implement this feature in the next release. In the meantime, you can customize EasyAudit to use your existing fields. The change that you'll need to make is isolated to a single script step. It's located at around line 155 (just under the comment that reads, `Add this table to the SELECT statement.`) There you will see a `Set Variable` script step, with this value:
+
+    If ( not IsEmpty ( $select ); $select & " UNION ALL "; "" ) & "SELECT '" & $table_name & "', EA_UUID, EA_Mod_Count FROM " & $table_name & " WHERE ( NUMVAL ( EA_Mod_Timestamp ) >= " & GetAsNumber ( $TS_Pre_Commit ) & " ) AND ( EA_Modifier = '" & $Account_Name & "' )"
+
+You will need to change the references to the "EA_" fields so that the references are to the names of your own fields.
+
+Special thanks to [Dave Graham](https://twitter.com/bittailor) for making this suggestion!
