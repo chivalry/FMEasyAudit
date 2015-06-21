@@ -1,6 +1,8 @@
 <img src="fmeasyaudit_logo.png" width="30" height="30"> FMEasyAudit
 ===================================================================
 
+This is my own GitHub fork of Tim Dietrich's excellent FMEasyAudit FileMaker logging solution. At the start, it's just going to be a set up of the project organized for GitHub, but eventually I'll be adding features and perhaps updating the solution to more closely conform to the [modularfilemaker.org](http://modularfilemaker.org) standards. The documentation below is taken directly from Tim's original [fmeasyaudit.com](http://fmeasyaudit.com) web site, and so may be slightly wrong in some cases, particularly with the download links. All that will be corrected at some point in the near future.
+
 FMEasyAudit is an open source solution for implementing logging and auditing of FileMaker
 databases.
 
@@ -34,8 +36,7 @@ Setting up FMEasyAudit in a fairly simple solution (a few tables and layouts) us
 takes less than an hour. However, the process may take a bit longer depending on the
 number of layouts that you want to audit changes from, the number of tables that you want
 to audit, and the degree to which you want to audit the database. For example, you can
-optionally choose to audit deletions, imports, and more. Click here for complete
-instructions.
+optionally choose to audit deletions, imports, and more. [Setup instructions](#setup) are found below.
 
 **What type of information is included in the log that FMEasyAudit creates?**
 The log entries include:
@@ -99,7 +100,7 @@ individual field-level changes, a batch of related changes, as well as record de
 No. FMEasyAudit uses only native FileMaker functions, so no plugins are needed.
 
 **Is a demo database available?**
-Yes, and you can download it here.
+Yes, and you can [download it here](https://github.com/chivalry/FMEasyAudit/blob/master/EasyAudit_Beta_02/FMEasyAudit_Demo_B2.fmp12).
 
 **What versions of FileMaker are supported?**
 EasyAudit works with the FileMaker 13 platform. It supports clients running FileMaker
@@ -127,11 +128,11 @@ actions. To log certain actions (imports, "replace field contents," etc), you wi
 need to script those actions and make the appropriate calls to FMEasyAudit.
 
 **Who developed FMEasyAudit?**
-EasyAudit was developed by Tim Dietrich, a database consultant that develops custom
+EasyAudit was developed by [Tim Dietrich](http://timdietrich.me/), a database consultant that develops custom
 databases using the FileMaker platform. The techniques that FMEasyAudit uses are based in
-large part on the work that Tim did on FMEasySync.
+large part on the work that Tim did on [FMEasySync](http://fmeasysync.com/).
 
-Setup and Configuration
+<a name="setup"></a>Setup and Configuration
 -----------------------
 
 To configure your database for use with FMEasyAudit, follow these instructions.
@@ -203,7 +204,11 @@ This request is to allow the developer to use existing fields instead of having 
 FMEasySync's `EA` fields (`EA_UUID`, `EA_Mod_Count`, `EA_Modifier`, and so on) to their
 tables.
 
-We're hoping to implement this feature in the next release. In the meantime, you can customize EasyAudit to use your existing fields. The change that you'll need to make is isolated to a single script step. It's located at around line 155 (just under the comment that reads, `Add this table to the SELECT statement.`) There you will see a `Set Variable` script step, with this value:
+We're hoping to implement this feature in the next release. In the meantime, you can
+customize EasyAudit to use your existing fields. The change that you'll need to make is
+isolated to a single script step. It's located at around line 155 (just under the comment
+that reads, `Add this table to the SELECT statement.`) There you will see a `Set
+Variable` script step, with this value:
 
     If ( not IsEmpty ( $select ); $select & " UNION ALL "; "" ) & "SELECT '" & $table_name & "', EA_UUID, EA_Mod_Count FROM " & $table_name & " WHERE ( NUMVAL ( EA_Mod_Timestamp ) >= " & GetAsNumber ( $TS_Pre_Commit ) & " ) AND ( EA_Modifier = '" & $Account_Name & "' )"
 
