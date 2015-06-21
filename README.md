@@ -193,6 +193,24 @@ trigger.**
     view the layout in table mode. For a very basic example, see the FMEasyAudit demo
     database.
 
+FileMaker Accounts
+------------------
+
+There are three accounts set up in the FMEasyAudit database:
+
+|Account Name|Password |Privilege Set  |
+|------------|---------|-------------  |
+|Admin       |fmezaudit|Full Access    |
+|User1       |fmezuser1|Data Entry Only|
+|User2       |fmezuser2|Data Entry Only|
+
+Using The FMEasyAudit Demo Database
+-----------------------------------
+
+FMEasyAudit must be hosted on a server running FileMaker Server 13 or later.
+
+To access the database, you can use any of the FileMaker 13 platform clients, including FileMaker Pro, FileMaker Pro Advanced, FileMaker Go, and FileMaker WebDirect.
+
 Wish List
 ---------
 
@@ -215,3 +233,49 @@ Variable` script step, with this value:
 You will need to change the references to the "EA_" fields so that the references are to the names of your own fields.
 
 Special thanks to [Dave Graham](https://twitter.com/bittailor) for making this suggestion!
+
+License
+-------
+
+License Agreement for FMEasyAudit
+
+This software is supplied to you by Timothy Dietrich in consideration of your agreement to the following terms, and your use, installation, modification or redistribution of this software constitutes acceptance of these terms. If you do not agree with these terms, please do not use, install, modify or redistribute this software.
+
+In consideration of your agreement to abide by the following terms, and subject to these terms, Timothy Dietrich grants you a personal, non-exclusive license, to use, reproduce, modify and redistribute the software, with or without modifications, in source and/or binary forms; provided that if you redistribute the software in its entirety and without modifications, you must retain this notice and the following text and disclaimers in all such redistributions of the software, and that in all cases attribution of Timothy Dietrich as the original author of EasySync shall be included in all such resulting software products or distributions.
+
+Neither the name, trademarks, service marks or logos of Timothy Dietrich may be used to endorse or promote products derived from the software without specific prior written permission from Timothy Dietrich. Except as expressly stated in this notice, no other rights or licenses, express or implied, are granted by Timothy Dietrich herein, including but not limited to any patent rights that may be infringed by your derivative works or by other works in which the software may be incorporated.
+
+The software is provided by Timothy Dietrich on an "AS IS" basis. TIMOTHY DIETRICH MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION THE IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, REGARDING THE SOFTWARE OR ITS USE AND OPERATION ALONE OR IN COMBINATION WITH YOUR PRODUCTS.
+
+IN NO EVENT SHALL Timothy Dietrich BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) ARISING IN ANY WAY OUT OF THE USE, REPRODUCTION, MODIFICATION AND/OR DISTRIBUTION OF THE SOFTWARE, HOWEVER CAUSED AND WHETHER UNDER THEORY OF CONTRACT, TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY OR OTHERWISE, EVEN IF Timothy Dietrich HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+Note: FileMaker® is a registered trademark of FileMaker Inc. 
+
+For additional information, please contact:
+
+Timothy Dietrich
+Postal Address: 2711 Buford Road, Suite #163, Richmond, VA 23235-2433 USA
+Email: timdietrich@me.com
+Web: http://timdietrich.me
+Twitter: @tdietrich
+
+Change Log
+----------
+
+EasyAudit Demo - Change Log
+
+Beta 2 (11-15-2014)
+- The single "EasyAudit" script has been split into several smaller, modularized scripts.
+- User-definable `EA_` fields are supported. You'll see settings for these in the `EasyAudit - Settings` script.
+- The demo database now includes an `Audit Log` tab, as an example of how you can view related entries in the log, including those of related records. I have added an `EA_UUID_List` field to the Surveys table, and a new relationship between Surveys and the EasyAudit table (as table occurrence "Survey_Log") to illustrate this functionality.
+- The "Open Log" function will now display all log entries if no script param is passed, or a list of log entries based on a list of records (if a list of EA_UUID values passed to it). The demo database's "Open Log" button is an example of how you can use this to open the log viewer and see logs for the parent and child records.
+- Added a new `$$ea_baseline_deletes` setting. If enabled, EasyAudit will take a baseline of a record (or records) prior to logging the deletion. This is enabled by default.
+• Bug Fix: The "Tail" button (on the EasyAudit layout) is now wired up properly to the "EasyAudit - Tail Log" script.
+- Bug Fix: Added support for non-SQL-compliant base table names and table occurrence names.
+- Renamed a few settings. $$omit_tables is now $$ea_omit_tables. $$timeout_seconds is now $$ea_timeout_seconds.
+- Log "Entry Types" now more accurately reflect new and changed values. If the value being logged is in a field that previous had no log entry, then it will appear in the logs as "New Value." Otherwise, it shows as a "Changed Value."
+
+Beta 1 (Posted 09-18-2014)
+- Initial beta released.
+- Includes examples of all core auditing functions.
+- No support for "rollbacks" yet.
